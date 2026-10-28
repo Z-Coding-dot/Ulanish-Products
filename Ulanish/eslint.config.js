@@ -1,0 +1,65 @@
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
+import hooks from 'eslint-plugin-react-hooks';
+import i18next from 'eslint-plugin-i18next';
+import globals from 'globals';
+export default ts.config(
+  { ignores: ['dist/**', 'node_modules/**', '.codex/**', '.agents/**', 'public/**'] },
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx,js,mjs}'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    plugins: { 'react-hooks': hooks, i18next: i18next },
+    rules: {
+      ...hooks.configs.recommended.rules,
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'i18next/no-literal-string': [
+        'error',
+        {
+          markupOnly: true,
+          ignoreAttribute: [
+            'className',
+            'id',
+            'type',
+            'role',
+            'viewBox',
+            'd',
+            'fill',
+            'stroke',
+            'xmlns',
+            'target',
+            'rel',
+            'aria-hidden',
+            'data-testid',
+            'inputMode',
+            'autoComplete',
+            'name',
+            'dir',
+            'lang',
+            'method',
+            'width',
+            'height',
+            'loading',
+            'decoding',
+            'sizes',
+            'srcSet',
+            'aria-live',
+            'aria-modal',
+            'aria-haspopup',
+            'aria-expanded',
+            'aria-selected',
+            'aria-controls',
+            'aria-labelledby',
+            'aria-describedby',
+            'tabIndex',
+            'href',
+            'to',
+            'variant',
+            'mode',
+          ],
+        },
+      ],
+    },
+  },
+);
