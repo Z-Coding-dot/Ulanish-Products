@@ -26,7 +26,11 @@ export default function Products() {
   return (
     <>
       <SEO title={t('products.title')} description={t('products.description')} />
-      <PageHeader title={t('products.title')} />
+      <PageHeader
+        title={t('products.title')}
+        description={t('products.description')}
+        image="/images/hero-discover.webp"
+      />
       <Section>
         <p className="sample-note">{t('common.sample')}</p>
         <Reveal className="catalog-toolbar">

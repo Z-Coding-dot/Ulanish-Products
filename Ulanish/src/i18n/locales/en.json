@@ -189,5 +189,10 @@
     "resellerHeading": "Discuss a reseller arrangement",
     "resellerText": "Quantities, prices and responsibilities must be agreed directly. Viewing this page creates no agreement."
   },
+  "images": {
+    "storeInterior": "Sample retail interior with clothing displays",
+    "workspace": "Desk and shelving in a workspace",
+    "exampleProduct": "Illustrative product icon"
+  },
   "_review": "needs native review before launch"
 }

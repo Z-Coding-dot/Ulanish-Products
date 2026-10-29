@@ -189,5 +189,10 @@
     "resellerHeading": "گفتگو دربارهٔ همکاری فروش",
     "resellerText": "تعداد، قیمت و مسؤولیت‌ها باید مستقیماً توافق شود. دیدن این صفحه قرارداد همکاری نیست."
   },
+  "images": {
+    "storeInterior": "نمونهٔ فضای داخلی فروشگاه با نمایش پوشاک",
+    "workspace": "میز و قفسه‌ها در یک فضای کاری",
+    "exampleProduct": "نماد نمایشی محصول"
+  },
   "_review": "needs native review before launch"
 }

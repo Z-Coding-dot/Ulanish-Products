@@ -41,7 +41,10 @@ describe('navigation integrity', () => {
       headings = new Set<string>();
     for (const nav of [...navigation, ...legalNavigation]) {
       mount(nav.to);
-      await waitFor(() => expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1));
+      // Lazy route imports can exceed the default one-second wait on a cold run.
+      await waitFor(() => expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1), {
+        timeout: 5000,
+      });
       const heading = screen.getByRole('heading', { level: 1 }).textContent!;
       await waitFor(() => expect(document.title).toContain(heading));
       expect(headings.has(heading)).toBe(false);

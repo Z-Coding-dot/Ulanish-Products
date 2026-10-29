@@ -1,12 +1,39 @@
 import { Reveal } from '@/components/ui/motion/Reveal';
+import { useLanguage } from '@/context/LanguageContext';
+import { siteConfig } from '@/data/siteConfig';
 import { Breadcrumbs } from './Breadcrumbs';
-export function PageHeader({ title }: { title: string }) {
+export function PageHeader({
+  title,
+  description,
+  image = '/images/hero-home.webp',
+}: {
+  title: string;
+  description?: string;
+  image?: string;
+}) {
+  const { l } = useLanguage();
   return (
     <section className="page-header">
-      <Reveal>
-        <h1>{title}</h1>
-        <Breadcrumbs title={title} />
-      </Reveal>
+      <img
+        className="page-header-image"
+        src={image}
+        alt=""
+        width={1600}
+        height={900}
+        decoding="async"
+      />
+      <div className="page-header-overlay" />
+      <div className="container-site page-header-inner">
+        <Reveal className="page-header-copy">
+          <span className="page-header-eyebrow">{l(siteConfig.name)}</span>
+          <h1>{title}</h1>
+          {description && <p>{description}</p>}
+          <Breadcrumbs title={title} />
+        </Reveal>
+        <span className="page-header-mark" aria-hidden="true">
+          <span className="brand-mark" />
+        </span>
+      </div>
     </section>
   );
 }

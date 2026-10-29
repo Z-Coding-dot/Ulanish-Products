@@ -26,7 +26,7 @@ export default function Home() {
   const { t } = useTranslation();
   const { l, language, dir } = useLanguage();
   const metadata = useCatalogMetadata();
-  const featured = useProducts({ pageSize: 8, sort: 'price-desc' });
+  const featured = useProducts({ pageSize: 4, sort: 'price-desc' });
   const arrivals = useProducts({ pageSize: 8 });
   const settings = useSettings();
   const rail = useRef<HTMLDivElement>(null);
@@ -53,7 +53,7 @@ export default function Home() {
       <SEO
         title={t('home.title')}
         description={t('home.description')}
-        image="/images/hero.svg"
+        image="/images/hero-collection.webp"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'Organization',
@@ -136,7 +136,7 @@ export default function Home() {
           title={t('home.featured')}
           description={t('home.featuredSub')}
           action={
-            <div className="flex gap-2">
+            <div className="flex gap-2 lg:hidden">
               <button
                 className="icon-btn"
                 aria-label={t('common.previous')}
@@ -176,6 +176,7 @@ export default function Home() {
             ref={rail}
             className="product-carousel"
             onPointerDown={(e) => {
+              drag.current.moved = false;
               if (e.pointerType !== 'mouse' || e.button !== 0) return;
               drag.current = {
                 start: e.clientX,
@@ -186,6 +187,10 @@ export default function Home() {
             }}
             onPointerMove={(e) => {
               if (!drag.current.down) return;
+              if (e.buttons !== 1) {
+                drag.current.down = false;
+                return;
+              }
               const delta = e.clientX - drag.current.start;
               if (Math.abs(delta) > 6) {
                 drag.current.moved = true;
@@ -200,6 +205,13 @@ export default function Home() {
             }}
             onPointerCancel={() => {
               drag.current.down = false;
+              drag.current.moved = false;
+            }}
+            onLostPointerCapture={() => {
+              drag.current.down = false;
+            }}
+            onPointerLeave={(e) => {
+              if (!e.currentTarget.hasPointerCapture(e.pointerId)) drag.current.down = false;
             }}
             onClickCapture={(e) => {
               if (drag.current.moved) {
@@ -253,10 +265,12 @@ export default function Home() {
       <Section>
         <div className="split-story">
           <ImageReveal
-            src="/images/category-portrait.svg"
-            alt={t('home.aboutTitle')}
-            width={750}
-            height={1000}
+            src="/images/hero-collection.webp"
+            srcSet="/images/hero-collection-800.webp 800w, /images/hero-collection.webp 1600w"
+            sizes="(min-width:1024px) 50vw, 100vw"
+            alt={t('images.storeInterior')}
+            width={1600}
+            height={900}
             loading="lazy"
           />
           <Reveal mode="slideEnd">

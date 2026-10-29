@@ -15,7 +15,7 @@ Copy `.env.example` to `.env.local` if settings need changing. The default is mo
 - Replace `src/data/sample.ts` with verified store products, companies/categories and four hero slides. Preserve each localized `{en,"fa-AF",ps}` object and schema shape.
 - Edit `src/i18n/locales/*.json` together and run `npm run i18n:check`. All locale resources are marked “needs native review before launch”. Native company names are used in RTL views.
 - Self-hosted Figtree, Plus Jakarta Sans, Vazirmatn and Noto Naskh Arabic are bundled from `@fontsource` with `font-display: swap`. The only global stylesheet is `src/index.css`, imported once in `main.tsx`.
-- Replace the five neutral assets documented in `docs/IMAGE_CREDITS.md` with real licensed photos and replace each product's image paths. No photo is currently shipped.
+- The sliders, headers, category tiles, and story sections use licensed sample photography; sources are documented in `docs/IMAGE_CREDITS.md`. Cards, galleries, and search thumbnails share product-specific example icons until real photos are supplied. Update each product's image paths with individually matched catalog photography before launch.
 
 ## How to go live
 

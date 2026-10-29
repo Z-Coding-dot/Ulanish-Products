@@ -28,7 +28,7 @@ export const siteConfig = {
     surface: '#F5F6FB',
     border: '#E5E7EB',
     green: '#0E7C3A',
-    background: '#FFFFFF',
+    background: '#F8F9FD',
   },
   social: [] as { label: string; url: string }[],
   mapsUrl:

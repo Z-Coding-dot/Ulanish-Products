@@ -1,4 +1,4 @@
-import { MapPin, ArrowUpRight } from 'lucide-react';
+import { MapPin, ArrowUpRight, Languages, MessagesSquare, LayoutGrid } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCatalogMetadata } from '@/context/CatalogContext';
@@ -22,7 +22,11 @@ export default function About() {
   return (
     <>
       <SEO title={t('about.title')} description={t('about.description')} />
-      <PageHeader title={t('about.title')} />
+      <PageHeader
+        title={t('about.title')}
+        description={t('about.description')}
+        image="/images/hero-office.webp"
+      />
       <Section>
         <p className="sample-note">{t('common.sample')}</p>
         <div className="split-story">
@@ -34,10 +38,12 @@ export default function About() {
             <p className="mt-4 text-muted">{t('about.offerText')}</p>
           </Reveal>
           <ImageReveal
-            src="/images/category-portrait.svg"
-            alt={t('home.aboutTitle')}
-            width={750}
-            height={1000}
+            src="/images/hero-office.webp"
+            srcSet="/images/hero-office-800.webp 800w, /images/hero-office.webp 1600w"
+            sizes="(min-width:1024px) 50vw, 100vw"
+            alt={t('images.workspace')}
+            width={1600}
+            height={900}
             loading="lazy"
           />
         </div>
@@ -45,12 +51,18 @@ export default function About() {
       <Section className="bg-surface">
         <SectionHeading title={t('about.why')} />
         <Stagger className="divide-y divide-border">
-          {[1, 2, 3].map((n) => (
-            <div key={n} className="flex items-center gap-6 py-7">
+          {[Languages, MessagesSquare, LayoutGrid].map((Icon, index) => (
+            <div key={index} className="flex items-center gap-4 py-7 md:gap-6">
               <span className="text-2xl tabular-nums text-primary">
-                {formatNumber(n, language).padStart(2, '0')}
+                {formatNumber(index + 1, language).padStart(2, '0')}
               </span>
-              <h3>{t(`about.reason${n}`)}</h3>
+              <h3 className="flex-1">{t(`about.reason${index + 1}`)}</h3>
+              <Icon
+                size={28}
+                className="shrink-0 text-primary"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
             </div>
           ))}
         </Stagger>
