@@ -12,6 +12,7 @@ import { formatPrice } from '@/utils/formatPrice';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Skeleton } from '@/components/ui/Skeleton';
+import { ProductArtwork } from '@/components/ui/ProductArtwork';
 function Match({ text, query }: { text: string; query: string }) {
   const at = text.toLocaleLowerCase().indexOf(query.toLocaleLowerCase());
   return at < 0 || !query ? (
@@ -120,7 +121,9 @@ export function SearchOverlay() {
                   aria-selected={active === i}
                   onClick={() => go(`/products/${p.id}`)}
                 >
-                  <img src={p.images[0] ?? '/images/product.svg'} alt="" width={44} height={56} />
+                  <div className="search-product-artwork">
+                    <ProductArtwork product={p} compact width={44} height={56} />
+                  </div>
                   <span className="min-w-0">
                     <span className="block text-sm font-semibold">
                       <Match text={l(p.name)} query={debounced} />

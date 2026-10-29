@@ -64,7 +64,11 @@ export default function Contact() {
   return (
     <>
       <SEO title={t('contact.title')} description={t('contact.description')} />
-      <PageHeader title={t('contact.title')} />
+      <PageHeader
+        title={t('contact.title')}
+        description={t('contact.description')}
+        image="/images/hero-collection.webp"
+      />
       <Section>
         <div className="contact-layout">
           <div>

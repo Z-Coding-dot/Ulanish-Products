@@ -5,13 +5,23 @@ import type { Product } from '@/api/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { Modal } from './Modal';
 import { formatNumber } from '@/utils/formatNumber';
+import { ProductArtwork, isPlaceholderImage } from './ProductArtwork';
 export function ProductGallery({ product }: { product: Product }) {
   const { t } = useTranslation();
   const { l, language, dir } = useLanguage();
   const [index, set] = useState(0);
   const [zoom, setZoom] = useState(false);
   const start = useRef(0);
-  const images = product.images.length ? product.images : ['/images/product.svg'];
+  const images = product.images.filter((src) => !isPlaceholderImage(src));
+  const current = images[Math.min(index, images.length - 1)];
+  if (!images.length) {
+    return (
+      <div className="gallery-main gallery-placeholder">
+        <ProductArtwork product={product} alt={l(product.name)} />
+        <p className="gallery-example-caption">{t('images.exampleProduct')}</p>
+      </div>
+    );
+  }
   const next = (step: number) => set((i) => (i + step + images.length) % images.length);
   return (
     <div>
@@ -30,15 +40,13 @@ export function ProductGallery({ product }: { product: Product }) {
           aria-label={t('common.zoom')}
           onClick={() => setZoom(true)}
         >
-          <img
-            src={images[index]}
+          <ProductArtwork
+            product={product}
+            src={current}
             alt={l(product.name)}
             width={800}
             height={1000}
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = '/images/product.svg';
-            }}
+            loading="eager"
           />
         </button>
         <button
@@ -57,18 +65,21 @@ export function ProductGallery({ product }: { product: Product }) {
             aria-label={t('common.image', { number: formatNumber(i + 1, language) })}
             onClick={() => set(i)}
           >
-            <img src={src} alt="" width={80} height={100} loading="lazy" />
+            <ProductArtwork product={product} src={src} compact width={80} height={100} />
           </button>
         ))}
       </div>
       <Modal open={zoom} onClose={() => setZoom(false)} title={l(product.name)}>
-        <img
-          className="lightbox-image"
-          src={images[index]}
-          alt={l(product.name)}
-          width={800}
-          height={1000}
-        />
+        <div className="gallery-lightbox">
+          <ProductArtwork
+            product={product}
+            className="lightbox-image"
+            src={current}
+            alt={l(product.name)}
+            width={800}
+            height={1000}
+          />
+        </div>
         <div className="mt-5 flex justify-center gap-3">
           <button className="icon-btn" aria-label={t('common.previous')} onClick={() => next(-1)}>
             <ChevronLeft className="rtl-icon" />

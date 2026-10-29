@@ -189,5 +189,10 @@
     "resellerHeading": "د بیاپلورنې د هوکړې خبرې",
     "resellerText": "شمېر، بیې او مسوولیتونه باید په مستقیم ډول ومنل شي. د دې پاڼې کتل تړون نه رامنځته کوي."
   },
+  "images": {
+    "storeInterior": "د جامو نندارې سره د پلورنځي د دننه بېلګیز انځور",
+    "workspace": "په کاري ځای کې مېز او المارۍ",
+    "exampleProduct": "د توکي بېلګیزه نښه"
+  },
   "_review": "needs native review before launch"
 }
