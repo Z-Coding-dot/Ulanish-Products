@@ -16,7 +16,7 @@ export function BottomTabBar() {
             {({ isActive }) => (
               <>
                 <Icon
-                  size={24}
+                  size={18}
                   fill={isActive ? 'currentColor' : 'none'}
                   fillOpacity={isActive ? 0.12 : 0}
                   aria-hidden="true"

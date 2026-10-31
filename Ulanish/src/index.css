@@ -166,7 +166,7 @@
     @apply mx-auto w-full max-w-site px-4 md:px-6 xl:px-8;
   }
   .section-space {
-    @apply py-16 lg:py-24 xl:py-28;
+    @apply py-10 sm:py-12 lg:py-14 xl:py-16;
   }
   .eyebrow {
     @apply mb-4 inline-flex items-center gap-3 text-sm font-semibold text-primary;
@@ -515,23 +515,12 @@
     @apply inline-flex items-center gap-2.5 text-2xl font-semibold text-primary;
     font-family: 'Plus Jakarta Sans', 'Vazirmatn', sans-serif;
   }
-  .brand-mark {
-    width: 26px;
-    height: 31px;
-    border: 3px solid currentColor;
-    border-top: 0;
-    border-radius: 0 0 10px 10px;
-    transform: skewY(-10deg);
-    position: relative;
-  }
-  .brand-mark:after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 14px;
-    border-inline-start: 3px solid currentColor;
-    inset-inline-start: 8px;
-    top: -3px;
+  .brand-logo {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 8px rgb(45 47 122 / 0.16));
   }
   .topbar {
     @apply hidden bg-deep text-sm text-white md:block;
@@ -633,22 +622,28 @@
     pointer-events: auto;
   }
   .tabbar {
-    @apply fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-border bg-white md:hidden;
-    padding-bottom: env(safe-area-inset-bottom);
+    @apply fixed z-40 grid grid-cols-4 md:hidden;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 50%;
+    width: min(calc(100% - 32px), 390px);
+    min-height: 54px;
+    transform: translateX(-50%);
+    border: 1px solid rgb(255 255 255 / 0.75);
+    border-radius: 20px;
+    background: rgb(255 255 255 / 0.72);
+    box-shadow: 0 12px 32px rgb(24 26 71 / 0.16);
+    backdrop-filter: blur(16px) saturate(150%);
   }
   .tabbar a {
-    @apply relative flex min-h-16 flex-col items-center justify-center gap-1 text-xs text-muted;
+    @apply relative m-1 flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-xl text-[10px] text-muted;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
   }
   .tabbar a[aria-current='page'] {
     color: var(--primary);
+    background: rgb(45 47 122 / 0.1);
   }
-  .tabbar a[aria-current='page']:before {
-    content: '';
-    position: absolute;
-    inset-inline: 25%;
-    top: 0;
-    height: 3px;
-    background: var(--primary);
+  .tabbar a:active {
+    transform: scale(0.94);
   }
   .hero {
     position: relative;
@@ -804,23 +799,66 @@
     @apply block text-xs text-muted;
   }
   .marquee {
-    @apply overflow-hidden border-y border-border py-7;
+    position: relative;
+    overflow: hidden;
+    margin-inline: auto;
+    max-width: 1440px;
+    padding-block: 12px;
+    border: 1px solid color-mix(in srgb, var(--primary) 13%, var(--border));
+    border-radius: 22px;
+    background: linear-gradient(105deg, rgb(255 255 255 / 0.84), rgb(237 239 255 / 0.64));
+    box-shadow: 0 14px 30px rgb(44 47 119 / 0.06);
+  }
+  .marquee:before,
+  .marquee:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: clamp(28px, 7vw, 110px);
+    height: 100%;
+    pointer-events: none;
+  }
+  .marquee:before {
+    inset-inline-start: 0;
+    background: linear-gradient(90deg, var(--background), transparent);
+  }
+  .marquee:after {
+    inset-inline-end: 0;
+    background: linear-gradient(270deg, var(--background), transparent);
   }
   .marquee-track {
     display: flex;
-    gap: 56px;
     width: max-content;
-    animation: marquee 40s linear infinite;
+    animation: marquee 34s linear infinite;
+    will-change: transform;
+  }
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-inline-end: 14px;
   }
   .marquee:hover .marquee-track,
   .marquee:focus-within .marquee-track {
     animation-play-state: paused;
   }
   .company-chip {
-    @apply inline-flex min-h-12 items-center gap-3 whitespace-nowrap text-lg font-semibold text-muted;
+    @apply inline-flex min-h-12 items-center gap-3 whitespace-nowrap rounded-2xl px-4 text-base font-semibold text-primary;
+    border: 1px solid rgb(45 47 122 / 0.1);
+    background: rgb(255 255 255 / 0.84);
+    box-shadow: 0 5px 12px rgb(45 47 122 / 0.06);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .company-chip:hover,
+  .company-chip:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgb(45 47 122 / 0.3);
+    box-shadow: 0 12px 20px rgb(45 47 122 / 0.12);
   }
   .company-monogram {
-    @apply flex h-10 w-10 items-center justify-center rounded-full border border-border text-sm text-primary;
+    @apply flex h-8 w-8 items-center justify-center rounded-xl text-xs font-bold text-white;
+    background: linear-gradient(140deg, #565cd5, #2d2f7a);
   }
   .product-carousel {
     display: grid;
@@ -912,7 +950,7 @@
     @apply mt-3 text-muted;
   }
   .split-story {
-    @apply grid items-center gap-10 lg:grid-cols-2 lg:gap-20;
+    @apply grid items-center gap-8 lg:grid-cols-2 lg:gap-14;
   }
   .split-story img {
     @apply aspect-[4/3] w-full rounded-xl object-cover;
@@ -999,8 +1037,10 @@
     border-radius: 28px;
     background: #ffffff12;
   }
-  .page-header-mark .brand-mark {
-    transform: scale(2) skewY(-10deg);
+  .page-header-mark .brand-logo {
+    width: 92px;
+    height: 92px;
+    filter: brightness(0) invert(1) drop-shadow(0 10px 16px rgb(0 0 0 / 0.2));
   }
   .breadcrumbs {
     @apply mt-7 inline-flex flex-wrap items-center gap-2 text-sm text-white;
@@ -1101,6 +1141,40 @@
   .footer-bottom {
     @apply mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/20 pt-6 text-xs;
   }
+  .footer-service-marquee {
+    position: relative;
+    margin-top: 36px;
+    overflow: hidden;
+    border-top: 1px solid rgb(255 255 255 / 0.14);
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.05);
+  }
+  .footer-service-track {
+    display: flex;
+    width: max-content;
+    animation: footer-marquee 32s linear infinite;
+    will-change: transform;
+  }
+  .footer-service-group {
+    display: flex;
+    gap: 34px;
+    padding-inline-end: 34px;
+  }
+  .footer-service-link {
+    @apply inline-flex min-h-14 items-center gap-3 whitespace-nowrap text-sm font-medium text-white;
+  }
+  .footer-service-link svg {
+    color: #c7c9ff;
+  }
+  .footer-service-marquee:hover .footer-service-track,
+  .footer-service-marquee:focus-within .footer-service-track {
+    animation-play-state: paused;
+  }
+  .not-found-page {
+    display: grid;
+    min-height: 100dvh;
+    align-items: center;
+  }
   .floating-actions {
     @apply fixed z-40 flex flex-col gap-3;
     inset-inline-end: 24px;
@@ -1191,7 +1265,10 @@
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
   .contact-layout {
-    @apply grid gap-12 lg:grid-cols-[1fr_1.15fr];
+    @apply grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12;
+  }
+  .contact-details {
+    @apply lg:pt-2;
   }
   .contact-card {
     @apply flex items-start gap-5 border-b border-border py-7;
@@ -1203,7 +1280,51 @@
     @apply mt-1 shrink-0 text-primary;
   }
   .contact-form {
-    @apply space-y-5 rounded-xl border border-border p-6 md:p-9;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid rgb(45 47 122 / 0.14);
+    border-radius: 26px;
+    background: linear-gradient(145deg, rgb(255 255 255 / 0.96), rgb(240 242 255 / 0.9));
+    box-shadow: 0 20px 44px rgb(24 26 71 / 0.1);
+  }
+  .contact-form:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -80px;
+    inset-inline-end: -50px;
+    width: 180px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(97 102 230 / 0.18), transparent 68%);
+  }
+  .contact-form-heading {
+    @apply mb-7 flex items-start gap-4;
+  }
+  .contact-form-heading h2 {
+    @apply text-xl;
+  }
+  .contact-form-heading p {
+    @apply mt-1 text-sm text-muted;
+  }
+  .contact-form-icon {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white;
+    background: linear-gradient(140deg, #565cd5, #2d2f7a);
+    box-shadow: 0 8px 16px rgb(45 47 122 / 0.2);
+  }
+  .contact-form-fields {
+    @apply grid gap-5 md:grid-cols-2;
+  }
+  .contact-form-message {
+    @apply md:col-span-2;
+  }
+  .contact-form .field {
+    background: rgb(255 255 255 / 0.86);
+  }
+  .contact-submit {
+    @apply mt-6 w-full;
   }
   .validation {
     @apply mt-2 flex items-center gap-2 text-sm;
@@ -1304,6 +1425,11 @@
   }
 }
 @keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes footer-marquee {
   to {
     transform: translateX(-50%);
   }
@@ -1412,9 +1538,9 @@
     gap: 7px;
     font-size: 1.25rem;
   }
-  .mobile-header .brand-mark {
-    width: 22px;
-    height: 27px;
+  .mobile-header .brand-logo {
+    width: 28px;
+    height: 28px;
   }
   .mobile-header .listbox-trigger {
     gap: 5px;
@@ -1425,7 +1551,7 @@
     padding-bottom: calc(72px + env(safe-area-inset-bottom));
   }
   .floating-actions {
-    bottom: calc(88px + env(safe-area-inset-bottom));
+    bottom: calc(86px + env(safe-area-inset-bottom));
     inset-inline-end: 16px;
   }
   .listbox-panel.mobile-sheet {
@@ -1510,6 +1636,13 @@
   .footer {
     padding-bottom: 32px;
   }
+  .footer-service-marquee {
+    margin-top: 28px;
+  }
+  .footer-service-link {
+    min-height: 50px;
+    font-size: 0.75rem;
+  }
   .desktop-call {
     display: none;
   }
@@ -1548,6 +1681,13 @@
   }
   .marquee-track {
     animation: none;
+  }
+  .footer-service-track {
+    width: 100%;
+    animation: none;
+  }
+  .footer-service-group + .footer-service-group {
+    display: none;
   }
 }
 @media (prefers-contrast: more), (forced-colors: active) {

@@ -21,7 +21,7 @@ export function FilterPanel({
 }) {
   const { t } = useTranslation();
   const { l } = useLanguage();
-  const { companies, categories, loading, error, retry } = useCatalogMetadata();
+  const { categories, loading, error, retry } = useCatalogMetadata();
   const id = useId();
   return (
     <div className="filter-panel">
@@ -39,15 +39,6 @@ export function FilterPanel({
         </>
       ) : (
         <>
-          <Listbox
-            label={t('common.company')}
-            value={filters.company ?? ''}
-            onChange={(v) => update({ company: v })}
-            options={[
-              { value: '', label: t('products.allCompanies') },
-              ...companies.map((c) => ({ value: c.id, label: l(c.name) })),
-            ]}
-          />
           <Listbox
             label={t('common.category')}
             value={filters.category ?? ''}

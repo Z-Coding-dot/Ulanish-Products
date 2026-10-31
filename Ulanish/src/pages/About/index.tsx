@@ -1,24 +1,20 @@
 import { MapPin, ArrowUpRight, Languages, MessagesSquare, LayoutGrid } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/context/LanguageContext';
-import { useCatalogMetadata } from '@/context/CatalogContext';
 import { siteConfig } from '@/data/siteConfig';
 import { formatNumber } from '@/utils/formatNumber';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Section } from '@/components/layout/Section';
 import { SEO } from '@/components/layout/SEO';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { CompanyCard } from '@/components/ui/CompanyCard';
 import { CTASection } from '@/components/ui/CTASection';
-import { ActionLink, Button } from '@/components/ui/Button';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { ActionLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/motion/Reveal';
 import { Stagger } from '@/components/ui/motion/Stagger';
 import { ImageReveal } from '@/components/ui/motion/ImageReveal';
 export default function About() {
   const { t } = useTranslation();
   const { l, language } = useLanguage();
-  const metadata = useCatalogMetadata();
   return (
     <>
       <SEO title={t('about.title')} description={t('about.description')} />
@@ -68,22 +64,7 @@ export default function About() {
         </Stagger>
       </Section>
       <Section>
-        <SectionHeading title={t('home.companies')} />
-        {metadata.loading ? (
-          <Skeleton className="h-24" />
-        ) : metadata.error ? (
-          <div role="alert">
-            <p>{t('common.error')}</p>
-            <Button onClick={metadata.retry}>{t('common.retry')}</Button>
-          </div>
-        ) : (
-          <Stagger className="grid grid-cols-2 gap-8 md:grid-cols-3">
-            {metadata.companies.map((c) => (
-              <CompanyCard company={c} key={c.id} />
-            ))}
-          </Stagger>
-        )}
-        <Reveal className="mt-20 map-block">
+        <Reveal className="map-block">
           <MapPin size={32} className="text-primary" aria-hidden="true" />
           <h2>{t('about.visit')}</h2>
           <p>{l(siteConfig.address)}</p>

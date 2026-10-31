@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { siteConfig } from '@/data/siteConfig';
 import { navigation, legalNavigation } from '@/data/navigation';
@@ -88,15 +89,22 @@ export function Footer() {
               store: l(siteConfig.name),
             })}
           </span>
-          <a
-            className="inline-flex items-center gap-1"
-            href={siteConfig.creditUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('footer.powered')} {l(siteConfig.credit)}
-          </a>
+          <span>{t('footer.powered')} {l(siteConfig.wordmark)}</span>
         </Reveal>
+      </div>
+      <div className="footer-service-marquee" aria-label={t('footer.services')}>
+        <div className="footer-service-track">
+          {[0, 1].map((copy) => (
+            <div className="footer-service-group" key={copy} aria-hidden={copy === 1}>
+              {Array.from({ length: 8 }, (_, item) => (
+                <Link to="/contact" className="footer-service-link" key={item} tabIndex={copy ? -1 : undefined}>
+                  <Sparkles size={14} aria-hidden="true" />
+                  {t('footer.services')}
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </footer>
   );
