@@ -2,6 +2,7 @@ import { Reveal } from '@/components/ui/motion/Reveal';
 import { useLanguage } from '@/context/LanguageContext';
 import { siteConfig } from '@/data/siteConfig';
 import { Breadcrumbs } from './Breadcrumbs';
+import { BrandLogo } from './BrandLogo';
 export function PageHeader({
   title,
   description,
@@ -31,7 +32,7 @@ export function PageHeader({
           <Breadcrumbs title={title} />
         </Reveal>
         <span className="page-header-mark" aria-hidden="true">
-          <span className="brand-mark" />
+          <BrandLogo />
         </span>
       </div>
     </section>

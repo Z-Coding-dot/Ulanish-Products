@@ -15,7 +15,6 @@ import { ProductGrid } from '@/components/ui/ProductGrid';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductSkeletons, Skeleton } from '@/components/ui/Skeleton';
 import { CategoryCard } from '@/components/ui/CategoryCard';
-import { CompanyCard } from '@/components/ui/CompanyCard';
 import { StepsList } from '@/components/ui/StepsList';
 import { CTASection } from '@/components/ui/CTASection';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
@@ -99,37 +98,6 @@ export default function Home() {
           {settings.data ? l(settings.data.announcement) : t('common.sample')}
         </p>
       </div>
-      <section className="py-6" aria-label={t('home.companies')}>
-        {metadata.loading ? (
-          <div className="container-site">
-            <Skeleton className="h-16" />
-          </div>
-        ) : metadata.error ? (
-          <div className="container-site" role="alert">
-            <p>{t('common.error')}</p>
-            {retry}
-          </div>
-        ) : (
-          <div className="marquee">
-            <div className="marquee-track">
-              {[0, 1].map((n) => (
-                <div
-                  className="flex items-center gap-14"
-                  key={n}
-                  aria-hidden={n === 1}
-                  ref={(el) => {
-                    if (el && n === 1) el.inert = true;
-                  }}
-                >
-                  {metadata.companies.map((c) => (
-                    <CompanyCard company={c} key={c.id} />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </section>
       <Section>
         <SectionHeading
           eyebrow={t('home.eyebrow')}

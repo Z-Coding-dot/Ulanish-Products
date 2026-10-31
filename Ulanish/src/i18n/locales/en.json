@@ -144,7 +144,8 @@
     "info": "Visit & contact",
     "legal": "Store information",
     "powered": "Powered by",
-    "copyright": "© {{year}} {{store}}. All rights reserved."
+    "copyright": "© {{year}} {{store}}. All rights reserved.",
+    "services": "Need a database, website, or another digital service? Contact Ulanish."
   },
   "cta": {
     "title": "A question before you choose?",

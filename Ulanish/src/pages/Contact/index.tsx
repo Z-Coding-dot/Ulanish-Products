@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MapPin, Phone, ArrowUpRight } from 'lucide-react';
+import { MapPin, Phone, ArrowUpRight, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/context/LanguageContext';
 import { siteConfig } from '@/data/siteConfig';
@@ -71,7 +71,7 @@ export default function Contact() {
       />
       <Section>
         <div className="contact-layout">
-          <div>
+          <div className="contact-details">
             <Reveal>
               <span className="eyebrow">{t('nav.contact')}</span>
               <h2>{t('contact.formTitle')}</h2>
@@ -106,38 +106,49 @@ export default function Contact() {
               </a>
             </ContactCard>
           </div>
-          <Reveal>
+          <Reveal className="contact-form-wrap">
             <form className="contact-form" onSubmit={handleSubmit(submit)} noValidate>
-              <h2 className="text-2xl">{t('contact.formTitle')}</h2>
-              <p className="text-sm text-muted">{t('contact.formIntro')}</p>
-              <Input
-                id="contact-name"
-                label={t('contact.name')}
-                placeholder={t('contact.namePlaceholder')}
-                autoComplete="name"
-                error={errors.name?.message}
-                required
-                {...register('name')}
-              />
-              <Input
-                id="contact-phone"
-                label={t('common.phone')}
-                placeholder={t('contact.phonePlaceholder')}
-                type="tel"
-                autoComplete="tel"
-                dir="ltr"
-                error={errors.phone?.message}
-                required
-                {...register('phone')}
-              />
-              <Textarea
-                id="contact-message"
-                label={t('common.message')}
-                placeholder={t('contact.messagePlaceholder')}
-                error={errors.message?.message}
-                required
-                {...register('message')}
-              />
+              <div className="contact-form-heading">
+                <span className="contact-form-icon" aria-hidden="true">
+                  <Send size={19} />
+                </span>
+                <div>
+                  <h2>{t('contact.formTitle')}</h2>
+                  <p>{t('contact.formIntro')}</p>
+                </div>
+              </div>
+              <div className="contact-form-fields">
+                <Input
+                  id="contact-name"
+                  label={t('contact.name')}
+                  placeholder={t('contact.namePlaceholder')}
+                  autoComplete="name"
+                  error={errors.name?.message}
+                  required
+                  {...register('name')}
+                />
+                <Input
+                  id="contact-phone"
+                  label={t('common.phone')}
+                  placeholder={t('contact.phonePlaceholder')}
+                  type="tel"
+                  autoComplete="tel"
+                  dir="ltr"
+                  error={errors.phone?.message}
+                  required
+                  {...register('phone')}
+                />
+                <div className="contact-form-message">
+                  <Textarea
+                    id="contact-message"
+                    label={t('common.message')}
+                    placeholder={t('contact.messagePlaceholder')}
+                    error={errors.message?.message}
+                    required
+                    {...register('message')}
+                  />
+                </div>
+              </div>
               <div hidden aria-hidden="true">
                 <label htmlFor="contact-website">{t('contact.website')}</label>
                 <input
@@ -147,9 +158,10 @@ export default function Contact() {
                   {...register('website')}
                 />
               </div>
-              <Button type="submit" variant="whatsapp" className="w-full">
+              <Button type="submit" variant="whatsapp" className="contact-submit">
                 <WhatsAppIcon />
                 {t('contact.send')}
+                <ArrowUpRight size={18} className="rtl-icon" aria-hidden="true" />
               </Button>
               {ready && (
                 <div role="status" className="text-sm">
@@ -162,7 +174,7 @@ export default function Contact() {
             </form>
           </Reveal>
         </div>
-        <Reveal className="map-block mt-16">
+        <Reveal className="map-block mt-10">
           <MapPin size={32} className="text-primary" aria-hidden="true" />
           <h2>{t('about.visit')}</h2>
           <p>{l(siteConfig.address)}</p>

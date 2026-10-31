@@ -24,8 +24,8 @@ export default function App() {
         <Route path="reseller-terms" element={<ContentPage />} />
         <Route path="search" element={<Search />} />
         <Route path="offline" element={<Offline />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
